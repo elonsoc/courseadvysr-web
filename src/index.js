@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Courses from "./Courses";
 
 ReactDOM.render(
+  
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <App/>
+        </Route>
+        <Route path="/courses">
+          <Courses/>
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 
