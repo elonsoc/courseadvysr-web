@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import test from './test.json';
+
 import { useTable } from 'react-table';
 import { Table, Navbar, Container, Col, Row, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
