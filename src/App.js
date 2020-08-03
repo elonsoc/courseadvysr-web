@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import { Link } from "react-router-dom";
+
 import {Button, Row, Container, Card} from "react-bootstrap"
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
           <Card.Body className="text-center">
             <Card.Text>Coursevysr seeks to revolutionize your relationship with everything course related at Elon University.</Card.Text>
             <Card.Text>This service requires an active Elon University account to access.</Card.Text>
-            <Button href="/courses/" variant="primary">Log In with Elon IdP</Button>
+            <Button href="/login/" variant="primary">Log In with your Elon Account</Button>
            
           </Card.Body>
 

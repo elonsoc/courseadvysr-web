@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useTable } from 'react-table';
 import { Table, Navbar, Container, Col, Row, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
+import environ from './prod-or-dev';
 
 function Courses() {
     const [someData, setSomeData] = useState([]);
@@ -16,6 +17,10 @@ function Courses() {
             </>
         );
     };
+
+    var root;
+
+    environ() ? root = "http://localhost:1337" : root = "https://api.courseadvysr.com";
 
     const MeetingDays = ({ values }) => {
         return (
@@ -87,7 +92,7 @@ function Courses() {
 
     useEffect(() => {
         console.log("ACCESSED!")
-        axios.get('http://api.courseadvysr.com/courses/').then((response) => {
+        axios.get(root + '/courses',{withCredentials: true}).then((response) => {
             var aResponse = JSON.parse(JSON.stringify(response.data))
             setSomeData(aResponse)
             setTermCode(aResponse[0].termCode)
@@ -101,7 +106,7 @@ function Courses() {
     
 
     
-    const data = React.useMemo(() => someData);
+    const data = React.useMemo(() => someData)
 
     const {
         getTableProps,
