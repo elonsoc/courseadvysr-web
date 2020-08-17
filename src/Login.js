@@ -2,18 +2,18 @@ import React from 'react';
 import {Form, Button} from 'react-bootstrap';
 import Axios from 'axios';
 import { useState } from 'react';
-import environ from './prod-or-dev';
+import environ from './helpers/prod-or-dev';
+import { Redirect } from 'react-router-dom';
+import { useUserDispatch, useUserState } from './contexts/UserContext';
 
 function Login() {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const [redirect, setRedirect] = useState(false)
 
-
-    var root;
-
-    environ() ? root = "http://localhost:1337" : root = "https://api.courseadvysr.com";
-
+    const dispatch = useUserDispatch()
+    const user = useUserState()
     const handleSubmit = (e) => {
 
         e.preventDefault()
@@ -28,19 +28,34 @@ function Login() {
 
         Axios({
             method: 'post',
-            url: root + '/login',
+            url: environ() + '/login',
             data: {"username":username, "password":password},
             withCredentials: true
         }).then((response) => {
-            //stupid way of clearing but idgaf
-            setUsername("")
-            setPassword("")
+            dispatch({user: username})
+            if(response.status === 200) {
+                
+                
+                //possibly stupid way of clearing but idgaf
+
+                setRedirect(true)
+            }
             console.log(response)
-        })
+        }).catch((response) => {
+            //TODO: alert user to wrong password or without password
+        });
     }
+
+    const willRedirect = () => {
+        if(redirect) {
+            return <Redirect to="/courses"/> 
+        }
+    }
+
     return (
         
         <Form onSubmit={handleSubmit}>
+            {willRedirect()}
             <Form.Group controlId="username">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)}></Form.Control>

@@ -6,24 +6,32 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Courses from "./Courses";
 import Login from "./Login";
+import { UserProvider } from './contexts/UserContext';
+
 
 ReactDOM.render(
   
   <React.StrictMode>
+    <UserProvider>
     <BrowserRouter>
+    
       <Switch>
         <Route exact path="/">
-          <App/>
+        
+            <App/>
         </Route>
         <Route path="/courses">
           <Courses/>
         </Route>
-
         <Route path="/login">
-          <Login/>
+          
+            <Login/>
+          
         </Route>
       </Switch>
+      
     </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>
   ,
   document.getElementById('root')
