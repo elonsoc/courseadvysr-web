@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Courses from "./Courses";
 import Login from "./Login";
+import Register from "./Register";
 import { UserProvider } from './contexts/UserContext';
 
 
@@ -27,6 +28,10 @@ ReactDOM.render(
           
             <Login/>
           
+        </Route>
+        <Route exact path="/register">
+        
+            <Register/>
         </Route>
       </Switch>
       
