@@ -30,7 +30,7 @@ function Register() {
         Axios({
             method: 'post',
             url: environ() + '/register',
-            data: {"username":username, "password":password, "email":email},
+            data: {"username":username.toLowerCase(), "password":password, "email":email.toLowerCase()},
             withCredentials: true
         }).then((response) => {
             dispatch({user: username})
@@ -41,15 +41,15 @@ function Register() {
 
                 setRedirect(true)
             }
-            console.log(response)
+            
         }).catch((response) => {
             //TODO: alert user to wrong password or without password
         });
     }
 
-    const willRedirect = () => {
+    const willRedirect = () => { //maybe a hack?
         if(redirect) {
-            return <Redirect to="/courses"/> 
+            return <Redirect to="/"/> 
         }
     }
 

@@ -29,7 +29,7 @@ function Login() {
         Axios({
             method: 'post',
             url: environ() + '/login',
-            data: {"username":username, "password":password},
+            data: {"username":username.toLowerCase(), "password":password},
             withCredentials: true
         }).then((response) => {
             dispatch({user: username})
