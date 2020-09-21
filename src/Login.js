@@ -40,7 +40,7 @@ function Login() {
 
                 setRedirect(true)
             }
-            console.log(response)
+            
         }).catch((response) => {
             //TODO: alert user to wrong password or without password
         });

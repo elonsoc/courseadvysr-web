@@ -145,7 +145,7 @@ function Courses() {
             }
         })
 
-        console.log(selectedArray)
+        
 
         axios.post(
             
