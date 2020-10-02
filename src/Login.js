@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button, Container} from 'react-bootstrap';
+import {Form, Button, Container, Modal} from 'react-bootstrap';
 import Axios from 'axios';
 import { useState } from 'react';
 import environ from './helpers/prod-or-dev';
@@ -11,9 +11,15 @@ function Login() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [redirect, setRedirect] = useState(false)
+    const [show, setShow] = useState(false);
+    const [modalText, setModalText] = useState("");
 
     const dispatch = useUserDispatch()
     const user = useUserState()
+
+    const handleClose = (e) => {
+        setShow(false)
+    }
     const handleSubmit = (e) => {
 
         e.preventDefault()
@@ -34,22 +40,45 @@ function Login() {
         }).then((response) => {
             dispatch({user: username})
             if(response.status === 200) {
-                
-                
+
                 //possibly stupid way of clearing but idgaf
 
                 setRedirect(true)
             }
             
         }).catch((response) => {
+            setModalText('Wrong Username or Password.')
+            setShow(true)
+            
+
             //TODO: alert user to wrong password or without password
         });
     }
 
+    const WillRedirect = () => {
+        //maybe a hack?
+        if (redirect) {
+            return <Redirect to="/courses" />;
+        }
+    };
+
     return (
+        
         <Container variant="primary" className="splash-container">
+        <Modal show={show} onHide={handleClose}> 
+                    <Modal.Header closeButton>
+                        <Modal.Title>Whoops</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{modalText}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
         <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
+            {WillRedirect()}
             {document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1") ? <Redirect to="/courses" /> : null}
             <Form.Group controlId="username">
                 <Form.Label>Username</Form.Label>
