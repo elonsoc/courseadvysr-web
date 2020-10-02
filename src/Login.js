@@ -1,5 +1,5 @@
 import React from 'react';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, Container} from 'react-bootstrap';
 import Axios from 'axios';
 import { useState } from 'react';
 import environ from './helpers/prod-or-dev';
@@ -46,16 +46,11 @@ function Login() {
         });
     }
 
-    const willRedirect = () => {
-        if(redirect) {
-            return <Redirect to="/courses"/> 
-        }
-    }
-
     return (
-        
+        <Container variant="primary" className="splash-container">
+        <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
-            {willRedirect()}
+            {document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1") ? <Redirect to="/courses" /> : null}
             <Form.Group controlId="username">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)}></Form.Control>
@@ -67,7 +62,7 @@ function Login() {
 
             <Button variant="primary" type="submit">Submit</Button>
         </Form>
-
+        </Container>
     );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, forceUpdate } from 'react';
 import { useTable, useRowSelect, } from 'react-table';
+import {Redirect} from 'react-router-dom'
 import { Table, Navbar, Container, Nav, Col, Row, Dropdown, Button, SplitButton, Spinner, Form } from 'react-bootstrap';
 import axios from 'axios';
 import environ from './helpers/prod-or-dev';
@@ -31,7 +32,7 @@ function Courses() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCourses, setSelectedCourses] = useState([]);
     const { user } = useUserState()
-
+    const [redirect, setRedirect] = useState('');
     const SelectedCoursesList = () => {
 
         var list = selectedCourses.map((selectedCourse) => {
@@ -40,12 +41,7 @@ function Courses() {
             );
 
         })
-
-
-
         return list
-
-
     }
 
 
@@ -181,6 +177,10 @@ function Courses() {
                 //We're passed a null response due to a misstype 
                 // setTableData([])
 
+            }).catch((response) => {
+                if (response.status === 401) {
+                    setRedirect(true)
+                }
             })
     }
 
@@ -212,6 +212,17 @@ function Courses() {
 
     return (
         <div>
+            {/* We have two styles here, checking for the token and 
+                (on line 225 of Me.js) checking for a type of response from the 
+                server. One relies on cookies and another relies on server.
+                (client v. server sided)
+
+                I've noticed that the check for cookies is a lot more snappier
+                while the check for a invalid response looks terrible, it allows
+                you to paint the first render instead of instantly checking for
+                the cookie and redirecting if possible.
+            */}
+            {document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1") ?  null : <Redirect to="/" />}
             <Navbar bg="light" variant="light">
                 <Navbar.Brand href="/courses">
                     Courseadvysr Gazania
@@ -224,11 +235,9 @@ function Courses() {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <Container style={{ margin: 0 }} fluid>
+            <Container fluid>
                 <Row>
                     <Form.Control value={searchQuery} onKeyDown={(e) => e.key === 'Enter' ? handleSearchSubmit(e) : null} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search for Courses e.g. 'CSC', 'PHL 210', 'POL 3', 'Discrete Structures'" />
-                </Row>
-                <Row>
                     <Col>
                         <Form onSubmit={handleSearchSubmit}>
                             <Button variant="primary" type="submit"> Submit </Button>
@@ -238,6 +247,7 @@ function Courses() {
                         <SplitButton onClick={(e) => handleSelectedCourses(e)} className="float-right" variant={'secondary'} title={'Add to Courses'}> <SelectedCoursesList /> <Dropdown.Item><Button variant="primary" type="submit">Commit</Button></Dropdown.Item> </SplitButton>
                     </Col>
                 </Row>
+
                 <Row>
                     <Col>
                         {isLoading ? <Spinner animation="border" /> : null}
@@ -266,6 +276,9 @@ function Courses() {
                             </tbody>
                         </Table>
                     </Col>
+                   {isLoading ?  <Col>
+                    
+                    </Col> : null}
                 </Row>
             </Container>
         </div>

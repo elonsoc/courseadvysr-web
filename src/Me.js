@@ -5,7 +5,7 @@ import Axios from 'axios';
 import environ from './helpers/prod-or-dev';
 import { useUserState } from './contexts/UserContext';
 import { useEffect } from 'react';
-
+import { Redirect } from 'react-router-dom'
 const IndeterminateCheckbox = React.forwardRef(
     ({ indeterminate, ...rest }, ref) => {
         const defaultRef = React.useRef()
@@ -27,7 +27,7 @@ function Me() {
 
     const [tableData, setTableData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
+    const [redirect, setRedirect] = useState(false);
 
     // const [term  Code, setTermCode] = useState('');
     // const [selectedCourses, setSelectedCourses] = useState([]);
@@ -149,7 +149,8 @@ function Me() {
                 }
 
             }).catch((response) => {
-                //TODO: alert user to wrong password or without password
+                setRedirect(true)
+                console.log(redirect)
             });
         }
     })
@@ -205,21 +206,40 @@ function Me() {
 
         }).catch((response) => {
             //TODO: alert user to wrong password or without password
+            console.log(response)
+            if (response.status === 401) {
+                setRedirect(true)
+                console.log(redirect)
+            }
         });
+    }
+
+    const handleLogout = () => {
+        /*
+        probably call /logout and it'll set the current cookie to a blacklist 
+        on the redis instance—yeah we're using redis so what?
+        */
     }
 
 
     return (
-        <div>
+        <>
+            {redirect ? <Redirect to="/" /> : null}
             <Navbar bg="light" variant="light">
                 <Navbar.Brand href="/courses">
                     Courseadvysr Gazania
-            </Navbar.Brand>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
+                    <Nav className="container-fluid">
                         <Nav.Link href="/courses">Courses</Nav.Link>
                         <Nav.Link href="/me">Me</Nav.Link>
+                        
+                        <Nav className="ml-auto">    
+                            {/* <Nav.Link>Schedule</Nav.Link> */}
+                            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                        </Nav>
+                        
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
@@ -261,7 +281,7 @@ function Me() {
                     {Object.keys(selectedRowIds).length > 0 ? <Button onClick={commitDeleteSelectedCourses}> Remove </Button> : <></>}
                 </Row>
             </Container>
-        </div>
+        </>
     );
 }
 

@@ -9,6 +9,7 @@ import { useUserDispatch, useUserState } from "./contexts/UserContext";
 function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [checkPassword, setCheckPassword] = useState("");
     const [email, setEmail] = useState("");
     const [refEmail, setRefEmail] = useState("");
     const [redirect, setRedirect] = useState(false);
@@ -31,7 +32,7 @@ function Register() {
 
         //PREFLIGHT requires the server to accept an OPTIONS method as well, which we now do.
         //We will probably have to accept an OPTIONS method every. single. request.
-        if (email != "" || username != "" || password != "" || refEmail != "") {
+        if (email !== "" && username !== "" && password !== "" && refEmail !== "" && password == checkPassword) {
 
             /**
                 TODO: fix up so we can write status lines directly from the
@@ -47,6 +48,7 @@ function Register() {
                     username: username.toLowerCase(),
                     password: password,
                     email: email.toLowerCase(),
+                    referrer: refEmail.toLowerCase()
                 },
                 withCredentials: true,
             })
@@ -65,9 +67,19 @@ function Register() {
                     setShow(true)
                 });
         } else {
-            setModalText(
-                "Not everything is filled out. Please fill everything out!"
-            );
+            if(password !== checkPassword) {
+                setModalText(
+                   "Your passwords don't match."
+                );
+
+                setCheckPassword('')
+                setPassword('')
+            } else {
+                setModalText(
+                    "Not everything is filled out. Please fill everything out!"
+                );    
+            }
+            
             setShow(true);
         }
     };
@@ -75,7 +87,7 @@ function Register() {
     const willRedirect = () => {
         //maybe a hack?
         if (redirect) {
-            return <Redirect to="/" />;
+            return <Redirect to="/courses" />;
         }
     };
 
@@ -88,8 +100,8 @@ function Register() {
             </p>
             <Form onSubmit={handleSubmit}>
                 {willRedirect()}
-
-                <Modal show={show} onHide={handleClose}>
+                {document.cookie.replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1") ? <Redirect to="/courses" /> : null}
+                <Modal show={show} onHide={handleClose}> 
                     <Modal.Header closeButton>
                         <Modal.Title>Whoops</Modal.Title>
                     </Modal.Header>
@@ -103,36 +115,32 @@ function Register() {
 
                 <Form.Group controlId="email">
                     <Form.Label>Email</Form.Label>
+                    <Form.Text className="text-muted">
+                        Your <code> elon.edu </code> email. We'll check this
+                        against our records.
+                    </Form.Text>
                     <Form.Control
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     ></Form.Control>
-                    <Form.Text className="text-muted">
-                        Your <code> elon.edu </code> email. We'll check this
-                        against our records.
-                    </Form.Text>
+                    
                 </Form.Group>
                 <Form.Group controlId="username">
                     <Form.Label>Username</Form.Label>
+                    <Form.Text className="text-muted">
+                        The username you'd like to have. You'll sign in with
+                        this.
+                    </Form.Text>
                     <Form.Control
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     ></Form.Control>
-                    <Form.Text className="text-muted">
-                        The username you'd like to have. You'll sign in with
-                        this.
-                    </Form.Text>
+                   
                 </Form.Group>
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-
-                    <Form.Control
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    ></Form.Control>
                     <Form.Text className="text-muted">
                         Your password is safe with us as we{" "}
                         <a href="https://en.wikipedia.org/wiki/Salt_(cryptography)">
@@ -148,6 +156,12 @@ function Register() {
                         Your password can be as long or as short as you like it.
                         We recommend at least eight characters.
                     </Form.Text>
+                    <Form.Control
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    ></Form.Control>
+                   
                 </Form.Group>
 
                 <Form.Group controlId="password">
@@ -155,23 +169,23 @@ function Register() {
 
                     <Form.Control
                         type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        value={checkPassword}
+                        onChange={(e) => setCheckPassword(e.target.value)}
                     ></Form.Control>
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Referral Email</Form.Label>
-
+                    <Form.Text className="text-muted">
+                        To be able to access, you'll have to enter an email of
+                        someone who is already a member.
+                    </Form.Text>
                     <Form.Control
                         type="email"
                         value={refEmail}
                         onChange={(e) => setRefEmail(e.target.value)}
                     ></Form.Control>
-                    <Form.Text className="text-muted">
-                        To be able to access, you'll have to enter an email of
-                        someone who is already a memeber.
-                    </Form.Text>
+                   
                 </Form.Group>
 
                 <Button variant="primary" type="submit">
