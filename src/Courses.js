@@ -14,6 +14,7 @@ import {
   Spinner,
   Form,
   DropdownButton,
+  Modal
 } from "react-bootstrap";
 import axios from "axios";
 import environ from "./helpers/prod-or-dev";
@@ -44,6 +45,10 @@ function Courses() {
   const [selectedCourses, setSelectedCourses] = useState([]);
   // const { user } = useUserState()
   const [redirect, setRedirect] = useState("");
+  const [show, setShow] = useState(false);
+  const [modalText, setModalText] = useState('');
+  const [modalTitleText, setModalTitleText] =  useState('');
+  
   const SelectedCoursesList = () => {
     var list = selectedCourses.map((selectedCourse) => {
       return (
@@ -126,6 +131,10 @@ function Courses() {
         Cell: ({ cell: { value } }) => <MeetingDays values={value} />,
       },
       {
+        Header: "Faculty",
+        accessor: "faculty"
+      },
+      {
         Header: "Building",
         accessor: "meetingBuilding",
       },
@@ -140,6 +149,10 @@ function Courses() {
     ],
     []
   );
+
+  const handleClose = (e) => {
+    setShow(false)
+  }
 
   const handleSelectedCourses = (e) => {
     let selectedArray = [];
@@ -169,8 +182,11 @@ function Courses() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true)
-    axios
+    
+
+    if(selectedTerm != "") {
+      setIsLoading(true)
+      axios
       .post(
         environ() + "/search",
         { query: searchQuery, term: selectedTerm },
@@ -193,6 +209,13 @@ function Courses() {
           setRedirect(true);
         }
       });
+    } else {
+      setModalText('Please select a term.')
+      setModalTitleText('Whoops.')
+      setShow(true)
+    }
+
+  
   };
 
   const data = React.useMemo(() => tableData, [tableData]);
@@ -220,6 +243,19 @@ function Courses() {
 
   return (
     <div>
+
+      <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>{modalTitleText}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{modalText}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>  
+
       {/* We have two styles here, checking for the token and 
                 (on line 225 of Me.js) checking for a type of response from the 
                 server. One relies on cookies and another relies on server.
@@ -237,7 +273,7 @@ function Courses() {
         <Redirect to="/" />
       )}
       <Navbar bg="light" variant="light">
-        <Navbar.Brand href="/courses">Courseadvysr Gazania</Navbar.Brand>
+        <Navbar.Brand href="/courses">Courseadvysr <code>α</code></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -260,7 +296,6 @@ function Courses() {
           <Col>
             <Form onSubmit={handleSearchSubmit}>
               <Row>
-                
                   <DropdownButton onSelect={(e) => setSelectedTerm(e)} variant={"secondary"} title={selectedTerm !== '' ? selectedTerm : "Select Term"}>
                     {" "}
                     <Dropdown.Item eventKey="20/01">20/01 - Fall 2020</Dropdown.Item>{" "}

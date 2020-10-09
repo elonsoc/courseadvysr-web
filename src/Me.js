@@ -226,7 +226,7 @@ function Me() {
     <>
       {redirect ? <Redirect to="/" /> : null}
       <Navbar bg="light" variant="light">
-        <Navbar.Brand href="/courses">Courseadvysr Gazania</Navbar.Brand>
+        <Navbar.Brand href="/courses">Courseadvysr <code>α</code></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container-fluid">
