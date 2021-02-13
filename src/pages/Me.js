@@ -1,18 +1,8 @@
-import {
-  Table,
-  Navbar,
-  Nav,
-  Container,
-  Col,
-  Row,
-  Spinner,
-  Button,
-} from "react-bootstrap";
 import React, { useState } from "react";
 import { useTable, useRowSelect } from "react-table";
 import Axios from "axios";
-import environ from "./helpers/prod-or-dev";
-import { useUserState } from "./contexts/UserContext";
+import environ from "../helpers/prod-or-dev";
+import { useUserState } from "../contexts/UserContext";
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 const IndeterminateCheckbox = React.forwardRef(
@@ -52,8 +42,6 @@ function Me() {
     );
   };
 
-  //check to see which environment we're in and provides the necessary path
-
   const MeetingDays = ({ values }) => {
     return (
       <>
@@ -75,6 +63,10 @@ function Me() {
 
   const columns = React.useMemo(
     () => [
+      {
+        Header: "Term",
+        accessor: "termCode",
+      },
       {
         Header: "CRN",
         accessor: "courseRegistrationNumber",
@@ -127,21 +119,6 @@ function Me() {
 
   useEffect(() => {
     if (isLoading) {
-      // axios.get(
-      //     environ() + '/commit',
-      //     {
-      //         withCredentials: true
-      //     })
-      //     .then((response) => {
-      //         // console.log(JSON.parse(JSON.stringify(response.data)))
-      //         if (response.data != null) {
-      //             setTableData(JSON.parse(JSON.stringify(response.data)))
-      //             setIsLoading(false)
-      //         }
-
-      //         //This allows react to not crash whenever we are passed a null
-      //         //response. We're passed a null response due to a misstype
-      //     })
       Axios({
         method: "get",
         url: environ() + "/commit",
@@ -222,75 +199,7 @@ function Me() {
         */
   };
 
-  return (
-    <>
-      {redirect ? <Redirect to="/" /> : null}
-      <Navbar bg="light" variant="light">
-        <Navbar.Brand href="/courses">Courseadvysr <code>α</code></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="container-fluid">
-            <Nav.Link href="/courses">Courses</Nav.Link>
-            <Nav.Link href="/me">Me</Nav.Link>
-
-            <Nav className="ml-auto">
-              {/* <Nav.Link>Schedule</Nav.Link> */}
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-            </Nav>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Container style={{ margin: 0 }} fluid>
-        <Row></Row>
-        <Row>
-          <Col>
-            {isLoading ? (
-              <Spinner animation="border" />
-            ) : (
-              <h1 style={{ paddingLeft: 12 }}> {user}</h1>
-            )}
-
-            <Table responsive {...getTableProps()}>
-              <thead>
-                {headerGroups.map((headerGroup) => (
-                  <tr {...headerGroup.getHeaderGroupProps()}>
-                    {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
-                        {column.render("Header")}
-                      </th>
-                    ))}
-                  </tr>
-                ))}
-              </thead>
-              <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                  prepareRow(row);
-                  return (
-                    <tr {...row.getRowProps()}>
-                      {row.cells.map((cell) => {
-                        return (
-                          <td {...cell.getCellProps()}>
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-        <Row>
-          {Object.keys(selectedRowIds).length > 0 ? (
-            <Button onClick={commitDeleteSelectedCourses}> Remove </Button>
-          ) : (
-            <></>
-          )}
-        </Row>
-      </Container>
-    </>
-  );
+  return <></>;
 }
 
 export default Me;

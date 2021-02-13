@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.scss";
-import App from "./App";
+import App from "./pages/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Courses from "./Courses";
-import Login from "./Login";
-import Register from "./Register";
-import Me from "./Me";
+import Courses from "./pages/Courses";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Me from "./pages/Me";
+import Schedule from "./pages/Schedule";
 import { UserProvider } from "./contexts/UserContext";
 
 ReactDOM.render(
@@ -31,7 +31,9 @@ ReactDOM.render(
         <Route exact path="/register">
           <Register />
         </Route>
-
+        <Route exact path="/schedule">
+          <Schedule />
+        </Route>
         <Route exact path="/me">
           <Me />
         </Route>
