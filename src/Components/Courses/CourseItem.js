@@ -71,7 +71,7 @@ export default function CourseItem({ data }) {
 
   return (
     <div className="m-2 space-y-4">
-      <div className="p-3 space-y-1 border-gray-400 border-2 rounded md:transition md:duration-500 md:ease-in-out md:hover:shadow-xl md:transform md:hover:-translate-y-1">
+      <div className="p-3 space-y-1 border-gray-400 border-2 rounded md:transition md:duration-200 md:ease-in-out md:hover:shadow-xl md:transform md:hover:-translate-y-1">
         <div className="relative md:space-x-4 md:flex md:flex-row">
           <div className="md:relative absolute bottom-0">
             <svg

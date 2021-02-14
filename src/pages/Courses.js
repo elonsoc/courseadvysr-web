@@ -85,7 +85,23 @@ export default function Courses() {
       <Navigation />
       <div className=" py-8 space-y-3">
         <h1 className="font-semibold text-center text-xl md:text-2xl">
-          What courses are you looking for?
+          I'm looking for{" "}
+          <select
+            value={selectedTerm}
+            onChange={(e) => setSelectedTerm(e.currentTarget.value)}
+            cllassName=""
+            style={{
+              "-webkit-appearance": "none",
+              border: "none",
+              "-moz-appearance": "none",
+              appearance: "none",
+            }}
+          >
+            <option value="21/02">Winter 2021</option>
+            <option value="21/03">Spring 2021</option>
+            <option value="21/04">Summer I 2021 </option>
+            <option value="21/05">Summer II 2021</option>
+          </select>
         </h1>
         <SearchSelections
           style="w-screen md:w-7/12"
@@ -98,7 +114,7 @@ export default function Courses() {
         >
           Search
         </button>
-        <CourseList data={data}           />
+        <CourseList data={data} />
       </div>
     </>
   );
