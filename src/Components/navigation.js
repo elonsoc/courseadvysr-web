@@ -1,13 +1,13 @@
 import React from "react";
 import { UserProvider, useUserState } from "../contexts/UserContext";
-function Navigation() {
+export default function Navigation() {
   const user = useUserState();
   return (
     <div
-      className="sticky flex flex-row justify-items items-center h-14  
-        w-auto px-4"
+      className="flex flex-row justify-items items-center h-14  
+        w-auto px-4 shadow-md"
     >
-      <a href="/">
+      <a href="/courses">
         <div className="flex flex-row items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -59,5 +59,3 @@ function Navigation() {
     </div>
   );
 }
-
-export default Navigation;
