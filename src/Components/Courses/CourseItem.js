@@ -72,7 +72,7 @@ export default function CourseItem({ data }) {
   return (
     <div className="m-2 space-y-4">
       <div className="p-3 space-y-1 border-gray-400 border-2 rounded md:transition md:duration-200 md:ease-in-out md:hover:shadow-xl md:transform md:hover:-translate-y-1">
-        <div className="relative md:space-x-4 md:flex md:flex-row">
+        <div className="relative md:space-x-4 md:grid grid-cols-10 md:grid-flow-col">
           <div className="md:relative absolute bottom-0">
             <svg
               className="w-10 h-10 md:w-6 md:h-6"
@@ -82,8 +82,8 @@ export default function CourseItem({ data }) {
               <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7 14h-5v5h-4v-5h-5v-4h5v-5h4v5h5v4z" />
             </svg>
           </div>
-
-          <div className="">{data.courseTitle}</div>
+          <div>{data.courseRegistrationNumber}</div>
+          <div className="col-span-2">{data.courseTitle}</div>
           <div className="">{ClassCode()}</div>
           <div className="">{data.faculty}</div>
 
@@ -108,15 +108,54 @@ export default function CourseItem({ data }) {
 
           <div className="text-right md:hidden md:relative absolute md:text-left top-0 right-0 ">
             <div className="">
-              {data.currStudents}/{data.maxStudents}
+              {data.currStudents < 10
+                ? String(data.currStudents) == -1
+                  ? data.currStudents
+                  : "0" + data.currStudents
+                : data.currStudents}
+              /{data.maxStudents}
             </div>
-            <div className="">{data.sectionStatus}</div>
+            <div className="">
+              <span
+                className={
+                    `rounded-lg mt-2 p-1 text-white ` + 
+                  (data.sectionStatus === "Closed"
+                    ? `bg-red-600`
+                    : data.sectionStatus === "Waitlisted"
+                    ? `bg-yellow-400`
+                    : data.sectionStatus === "Open"
+                    ? `bg-green-600`
+                    : `bg-none`) 
+                }
+              >
+                {data.sectionStatus}
+              </span>
+            </div>
           </div>
 
-          <div className="hidden md:block">
-            {data.currStudents}/{data.maxStudents}
+          <div className="hidden font-mono  md:block">
+            {data.currStudents < 10
+              ? data.currStudents == -1
+                ? data.currStudents
+                : "0" + data.currStudents
+              : data.currStudents}
+            /{data.maxStudents}
           </div>
-          <div className="hidden md:block">{data.sectionStatus}</div>
+          <div className="text-right hidden md:block">
+            <span
+              className={
+                data.sectionStatus === "Closed"
+                  ? "bg-red-600 rounded-lg p-2 text-white"
+                  : data.sectionStatus === "Waitlisted"
+                  ? "bg-yellow-400 rounded-lg p-2 text-white"
+                  : data.sectionStatus === "Open"
+                  ? "bg-green-600 rounded-lg p-2 text-white"
+                  : "bg-none"
+              }
+            >
+              {data.sectionStatus}
+            </span>
+          </div>
         </div>
       </div>
     </div>

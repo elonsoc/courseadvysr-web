@@ -16,6 +16,7 @@ export default function Courses() {
   const [modalText, setModalText] = useState("");
   const [modalTitleText, setModalTitleText] = useState("");
   const [selectedTerm, setSelectedTerm] = useState("21/03");
+  const [isVisible, setIsVisible] = useState(false)
 
   const revealInformation = (row) => {
     axios
@@ -66,6 +67,7 @@ export default function Courses() {
           if (response.data != null) {
             // console.log(response.data);
             setData(response.data);
+            setIsVisible(true)
           }
 
           //This allows react to not crash whenever we are passed a null response.
@@ -89,11 +91,11 @@ export default function Courses() {
           <select
             value={selectedTerm}
             onChange={(e) => setSelectedTerm(e.currentTarget.value)}
-            cllassName=""
+            
             style={{
-              "-webkit-appearance": "none",
+              "WebkitAppearance": "none",
               border: "none",
-              "-moz-appearance": "none",
+              "MozAppearance": "none",
               appearance: "none",
             }}
           >
@@ -114,7 +116,11 @@ export default function Courses() {
         >
           Search
         </button>
-        <CourseList data={data} />
+          <div className={isVisible ? `visible` : `hidden`}>
+          <CourseList  data={data} />
+          </div>
+          
+        
       </div>
     </>
   );
