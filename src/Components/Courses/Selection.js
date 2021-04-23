@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import CreatableSelect from "react-select/creatable";
 
+//TODO: Convert from JS to TSX
+
 export default class SearchSelections extends Component {
   constructor(props) {
     super(props);
   }
-  handleChange = (newValue, actionMeta) => {
+  handleChange = (newValue) => {
     this.setState(() => {
       this.props.selections(newValue);
       return { selection: newValue };
@@ -21,7 +23,7 @@ export default class SearchSelections extends Component {
         isMulti
         onChange={this.handleChange}
         className={this.props.style}
-        placeholder={`ECO, CSC 242, Communications, Orwell`}
+        placeholder={`ECO, CSC 1000, Art, Ceramics`}
         options={courseOptions}
       />
     );
