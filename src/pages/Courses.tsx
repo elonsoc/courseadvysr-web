@@ -1,4 +1,5 @@
 import React, { useState, MouseEvent } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import environ from "../helpers/prod-or-dev";
 import Navigation from "../Components/navigation";
@@ -10,11 +11,10 @@ import { Course } from "../Components/types";
 export default function Courses() {
   const [data, setData] = useState<Course[]>([]);
   const [query, setQuery] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  // const [termCode, setTermCode] = useState('');
-  const [selectedCourses, setSelectedCourses] = useState([String]);
+  const history = useHistory();
 
-  const [redirect, setRedirect] = useState(false);
+
+  // const [termCode, setTermCode] = useState('');
   const [selectedTerm, setSelectedTerm] = useState("21/01");
   const [isVisible, setIsVisible] = useState(true);
   //provide more rich text here!
@@ -30,23 +30,6 @@ export default function Courses() {
       });
   };
 
-  const handleSelectedCourses = (e: Event) => {
-    let selectedArray: string[] = [];
-    axios
-      .post(
-        environ() + "/commit",
-        { data: selectedArray },
-        {
-          withCredentials: true,
-        }
-      )
-      //RESPONSE
-      .then((response) => {});
-
-    //this is a hack to force an update on SelectedCoursesList... kinda sad :/
-    setSelectedCourses(selectedCourses);
-  };
-
   const handleSearchSubmit = (e: MouseEvent) => {
     e.preventDefault();
 
@@ -59,8 +42,7 @@ export default function Courses() {
       return entry.value;
     });
 
-    if (selectedTerm != "" && queryValues.length != 0) {
-      setIsLoading(true);
+    if (selectedTerm !== "" && queryValues.length !== 0) {
       axios
         .post(
           environ() + "/search",
@@ -82,7 +64,7 @@ export default function Courses() {
         })
         .catch((response) => {
           if (response.status === 401) {
-            setRedirect(true);
+            history.push("/");
           }
         });
     }

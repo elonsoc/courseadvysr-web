@@ -14,9 +14,7 @@ function Register() {
   const [checkPassword, setCheckPassword] = useState("");
   const [email, setEmail] = useState("");
   const [refEmail, setRefEmail] = useState("");
-  const [redirect, setRedirect] = useState(false);
-  const [show, setShow] = useState(false);
-  const [modalText, setModalText] = useState("");
+  
   const [hasRef, setHasRef] = useState(false);
   const history = useHistory();
 
@@ -32,7 +30,7 @@ function Register() {
           : ""
       );
     }
-  });
+  }, [hasRef]);
 
   const handleSubmit = (e: Event) => {
     e.preventDefault();
@@ -79,7 +77,7 @@ function Register() {
           console.log(
             "That email or username already exists. Did you forget your login information?"
           );
-          setShow(true);
+
         });
     } else {
       if (password !== checkPassword) {
@@ -93,7 +91,7 @@ function Register() {
         );
       }
 
-      setShow(true);
+      
     }
   };
 

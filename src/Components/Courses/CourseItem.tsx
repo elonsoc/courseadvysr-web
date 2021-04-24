@@ -33,10 +33,6 @@ export default function CourseItem({ data, revealModal }: CourseItemProps) {
     );
   };
 
-  const ClassCode = () => {
-    return <span></span>;
-  };
-
   const MeetingDays = () => {
     return (
       <span>
@@ -99,7 +95,7 @@ export default function CourseItem({ data, revealModal }: CourseItemProps) {
             <span>
               {data.meetingDays.map((day: string, idx: Number) =>
                 data.meetingDays.length > 1
-                  ? idx == data.meetingDays.length - 1
+                  ? idx === data.meetingDays.length - 1
                     ? day
                     : day + ", "
                   : day

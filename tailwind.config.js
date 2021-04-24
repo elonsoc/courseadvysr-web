@@ -10,7 +10,8 @@ module.exports = {
   },
   purge: {
     mode: "all",
-    purge: [
+    enabled: true,
+    content: [
       "./src/**/*.js",
       "./src/pages/*.js",
       "./src/**/*.jsx",

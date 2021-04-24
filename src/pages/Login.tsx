@@ -1,21 +1,14 @@
-import React, { InputHTMLAttributes, MouseEvent, useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import Axios from "axios";
 import environ from "../helpers/prod-or-dev";
 import { useHistory } from "react-router-dom";
-import { useUserDispatch, useUserState } from "../contexts/UserContext";
+import { useUserDispatch } from "../contexts/UserContext";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [show, setShow] = useState(false);
-
   const dispatch = useUserDispatch();
-  const user = useUserState();
   const history = useHistory();
-
-  const handleClose = (e: MouseEvent) => {
-    setShow(false);
-  };
   const handleSubmit = (e: MouseEvent | KeyboardEvent) => {
     e.preventDefault();
 
