@@ -72,7 +72,7 @@ export default function CourseItem({ data, revealModal }: CourseItemProps) {
     >
       <div className="p-3 space-y-1 border-gray-400 border-2 rounded lg:transition lg:duration-200 lg:ease-in-out lg:hover:shadow-xl lg:transform lg:hover:-translate-y-1">
         <div className="relative lg:grid course lg:grid-flow-col">
-          <div className="lg:relative absolute bottom-0">
+          <button className="lg:relative absolute bottom-0">
             <svg
               className="w-10 h-10 lg:w-6 lg:h-6"
               xmlns="http://www.w3.org/2000/svg"
@@ -80,13 +80,13 @@ export default function CourseItem({ data, revealModal }: CourseItemProps) {
             >
               <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm7 14h-5v5h-4v-5h-5v-4h5v-5h4v5h5v4z" />
             </svg>
-          </div>
+          </button>
           <div>{data.courseRegistrationNumber}</div>
           <div className="">{data.courseTitle}</div>
           <div className="">
-            <span>
+            
               {data.courseSubject}-{data.courseNumber}({data.courseSection})
-            </span>
+            
           </div>
           <div className="">{data.faculty}</div>
 
