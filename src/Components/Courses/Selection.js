@@ -44,12 +44,12 @@ export default class SearchSelections extends Component {
                 inputValue.search(":")
               )} ${inputValue.charAt(
                 inputValue.search(":") + 1
-              )}xxx`
+              )}000`
             : inputValue;
         }}
         isMulti
         onChange={this.handleChange}
-        className={this.props.style}
+        styles={this.props.style}
         placeholder={`ECO, CSC:2, Art, Ceramics`}
         options={courseOptions}
       />

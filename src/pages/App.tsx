@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import "../styles/tailwind.output.css";
+
 
 function App() {
   const history = useHistory();

@@ -6,6 +6,7 @@ import Courses from "./pages/Courses";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Me from "./pages/Me";
+import './index.css'
 import Schedule from "./pages/Schedule";
 
 

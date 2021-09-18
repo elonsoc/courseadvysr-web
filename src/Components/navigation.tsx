@@ -5,7 +5,7 @@ export default function Navigation() {
   return (
     <div
       className="flex flex-row justify-items items-center h-14  
-        w-auto px-4 shadow-md"
+        w-auto px-4"
     >
       <a href="/courses">
         <div className="flex flex-row items-center">

@@ -8,16 +8,5 @@ module.exports = {
       },
     },
   },
-  purge: {
-    mode: "all",
-    enabled: true,
-    content: [
-      "./src/**/*.js",
-      "./src/pages/*.js",
-      "./src/**/*.jsx",
-      "./src/**/*.ts",
-      "./src/**/*.tsx",
-      "public/**/*.html",
-    ],
-  },
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 };
