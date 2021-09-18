@@ -5,7 +5,6 @@ import { useState } from "react";
 import environ from "../helpers/prod-or-dev";
 import { useHistory } from "react-router-dom";
 
-import { useUserDispatch } from "../contexts/UserContext";
 import { useEffect } from "react";
 
 function Register() {
@@ -18,7 +17,6 @@ function Register() {
   const [hasRef, setHasRef] = useState(false);
   const history = useHistory();
 
-  const dispatch = useUserDispatch();
 
   // const user = useUserState();
   useEffect(() => {
@@ -67,7 +65,6 @@ function Register() {
         withCredentials: true,
       })
         .then((response) => {
-          dispatch({ user: username });
           if (response.status === 200) {
             //possibly stupid way of clearing but idgaf
           } else {

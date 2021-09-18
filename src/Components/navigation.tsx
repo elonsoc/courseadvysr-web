@@ -1,7 +1,7 @@
 import React from "react";
-import { useUserState } from "../contexts/UserContext";
+
 export default function Navigation() {
-  const user = useUserState();
+
   return (
     <div
       className="flex flex-row justify-items items-center h-14  
@@ -36,7 +36,7 @@ export default function Navigation() {
           <h1 className="text-lg font-bold">CourseAdvysr</h1>
         </div>
       </a>
-
+  
       <div className="m-auto mr-0">
         <div className="flex justify-start">
           <a className="mx-2" href="/courses">
@@ -49,7 +49,7 @@ export default function Navigation() {
             Schedule
           </a>
           <a className="mx-2" href="/me">
-            {user ? `Hi, ${user.username}` : "Me"}
+            Me
           </a>
           <a className="mx-2" href="/logout">
             Logout

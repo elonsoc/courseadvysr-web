@@ -2,12 +2,12 @@ import React, { MouseEvent, useState } from "react";
 import Axios from "axios";
 import environ from "../helpers/prod-or-dev";
 import { useHistory } from "react-router-dom";
-import { useUserDispatch } from "../contexts/UserContext";
+
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useUserDispatch();
+
   const history = useHistory();
   const handleSubmit = (e: MouseEvent | KeyboardEvent) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ function Login() {
     })
       .then((response) => {
         if (response.status === 200) {
-          dispatch({ user: username });
+        
           //possibly stupid way of clearing but idgaf
 
           setUsername("");

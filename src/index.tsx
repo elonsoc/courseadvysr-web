@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Me from "./pages/Me";
 import Schedule from "./pages/Schedule";
-import { UserProvider } from "./contexts/UserContext";
+
 
 ReactDOM.render(
   // Commenting out React.StrictMode due to React-Table problem:
@@ -15,7 +15,7 @@ ReactDOM.render(
   // Some say that StrictMode does not affect Prod builds?
   // <React.StrictMode>
 
-  <UserProvider>
+
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
@@ -38,7 +38,7 @@ ReactDOM.render(
         </Route>
       </Switch>
     </BrowserRouter>
-  </UserProvider>,
+,
   // </React.StrictMode>
   document.getElementById("root")
 );
