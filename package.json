@@ -20,7 +20,7 @@
         "@types/scheduler": "^0.16.1",
         "@typescript-eslint/eslint-plugin": "^4.28.0",
         "autoprefixer": "^10.0.2",
-        "axios": "^0.21.1",
+        "axios": "^0.21.2",
         "eslint-config-react-app": "^6.0.0",
         "install": "^0.13.0",
         "npm": "^7.20.3",
