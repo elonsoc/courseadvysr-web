@@ -72,15 +72,15 @@ export default function Courses() {
   return (
     <>
       <Navigation />
-      <div className="grid grid-cols-12 h-screen py-3 px-3 bg-yellow-300">
-        <div className={"bg-blue-300 " + (hideSearch ? "hidden" : "col-span-3")}>
+      <div className="grid grid-cols-12 py-3 px-3">
+        <div className={(hideSearch ? "hidden" : "col-span-3")}>
           <div>
             <p>Term:</p>
             <SearchSelections style={"text-sm "} selections={setQuery}/>
             <button onClick={(e) => handleSearchSubmit(e) }>Ayo</button>
           </div>
         </div>
-        <div className={"bg-red-300 " + (hideSearch ? "col-span-12" : "col-span-9")}>
+        <div className={  (hideSearch ? "col-span-12" : "col-span-9")}>
           <CourseList revealModal={revealInformation} list={data}/>
         </div>
 
