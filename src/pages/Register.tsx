@@ -4,7 +4,6 @@ import Axios from "axios";
 import { useState } from "react";
 import environ from "../helpers/prod-or-dev";
 import { useHistory } from "react-router-dom";
-
 import { useEffect } from "react";
 
 function Register() {
@@ -52,8 +51,8 @@ function Register() {
                 server OR have consistent lines for any mess-ups. Currently,
                 everything is hardcoded. No Bueno.
 
-                TODO:  make this actually do shit
-            **/
+                TODO: 
+      **/
       Axios({
         method: "post",
         url: environ() + "/register",
@@ -67,24 +66,22 @@ function Register() {
       })
         .then((response) => {
           if (response.status === 200) {
-            alert("Good response");
-
             // Prob should make a better reset procedure
             setUsername("");
             setPassword("");
             setCheckPassword("");
             setEmail("");
             setRefEmail("");
+
             history.push("/courses");
           } else {
-            alert("nah");
+            alert("Error: Bad Response");
           }
         })
         .catch((response) => {
           console.log(
             "That email or username already exists. Did you forget your login information?"
           );
-
         });
     } else {
       if (password !== checkPassword) {
