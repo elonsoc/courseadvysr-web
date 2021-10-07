@@ -40,6 +40,7 @@ function Register() {
     //PREFLIGHT requires the server to accept an OPTIONS method as well, which we now do.
     //We will probably have to accept an OPTIONS method every. single. request.
     if (
+      // Maybe add check for "elon.edu" if that isnt a thing elsewhere
       email !== "" &&
       username !== "" &&
       password !== "" &&
@@ -51,7 +52,7 @@ function Register() {
                 server OR have consistent lines for any mess-ups. Currently,
                 everything is hardcoded. No Bueno.
 
-                TODO:  
+                TODO:  make this actually do shit
             **/
       Axios({
         method: "post",
@@ -66,8 +67,17 @@ function Register() {
       })
         .then((response) => {
           if (response.status === 200) {
-            //possibly stupid way of clearing but idgaf
+            alert("Good response");
+
+            // Prob should make a better reset procedure
+            setUsername("");
+            setPassword("");
+            setCheckPassword("");
+            setEmail("");
+            setRefEmail("");
+            history.push("/courses");
           } else {
+            alert("nah");
           }
         })
         .catch((response) => {
@@ -149,7 +159,7 @@ function Register() {
 
               <button
                 type="submit"
-                onClick={(e: MouseEvent) => handleSubmit}
+                onClick={(e: any) => handleSubmit(e)}
                 className="w-1/2 h-9 flex items-center justify-center rounded-xl bg-black text-white"
               >
                 Register
