@@ -8,13 +8,15 @@ import CourseList from "../Components/Courses/CourseList";
 
 // import Alert from "../Components/Alerts";
 import { Course } from "../Components/types";
+import { useEffect } from "react";
 
 export default function Courses() {
   const [data, setData] = useState<Course[]>([]);
   const [query, setQuery] = useState([]);
   const history = useHistory();
 
-  const [selectedTerm, setSelectedTerm] = useState("21/01");
+  const [selectedTerm, setSelectedTerm] = useState("22/03");
+  const [terms, setTerms] = useState([["", ""]]);
   const [isVisible, setIsVisible] = useState(true);
   const [hideSearch, setHideSearch] = useState(false);
 
@@ -41,6 +43,9 @@ export default function Courses() {
       return entry.value;
     });
 
+    setData([]) // Clear collected data
+    console.log(queryValues)
+    console.log(selectedTerm)
     if (selectedTerm !== "" && queryValues.length !== 0) {
       axios
         .post(
@@ -69,6 +74,26 @@ export default function Courses() {
     }
   };
 
+  const getTerms = () => {
+    var initT: [string, string][] = [["", ""]]
+    axios.get(environ() + "/terms", { withCredentials: true }).then((response => {
+      if (response.data != null) {
+        response.data.map((term: { title: string; code: string; }) => {
+          initT.push([term.title, term.code])
+        })
+      }
+    })).finally(() => (setTerms(initT))
+    )
+
+
+  }
+
+  useEffect(() => {
+    getTerms()
+  }, []);
+
+
+
   return (
     <>
       <Navigation />
@@ -76,12 +101,15 @@ export default function Courses() {
         <div className={(hideSearch ? "hidden" : "col-span-3")}>
           <div>
             <p>Term:</p>
-            <SearchSelections style={"text-sm "} selections={setQuery}/>
-            <button onClick={(e) => handleSearchSubmit(e) }>Ayo</button>
+            <select onChange={(e) => setSelectedTerm(e.target.value)} value={selectedTerm}>{terms.map(t => {
+              return <option value={t[1]}>{t[0]}</option>
+            })}</select>
+            <SearchSelections style={"text-sm "} selections={setQuery} />
+            <button onClick={(e) => handleSearchSubmit(e)}>Ayo</button>
           </div>
         </div>
-        <div className={  (hideSearch ? "col-span-12" : "col-span-9")}>
-          <CourseList revealModal={revealInformation} list={data}/>
+        <div className={(hideSearch ? "col-span-12" : "col-span-9")}>
+          <CourseList revealModal={revealInformation} list={data} />
         </div>
 
       </div>
