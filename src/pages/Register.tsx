@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react";
-import "../styles/tailwind.output.css";
+
 import Axios from "axios";
 import { useState } from "react";
 import environ from "../helpers/prod-or-dev";
