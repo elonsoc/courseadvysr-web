@@ -11,7 +11,8 @@ type CourseListProps = {
 export default function CourseList({ list, revealModal }: CourseListProps) {
   return (
     <div className="space-y-2">
-      {/* <div className="mx-4 top-0 hidden lg:visible lg:grid course lg:grid-flow-col">
+      <div className="px-4 top-0 hidden lg:visible lg:grid course lg:grid-flow-col">
+        
         <div>CRN</div>
         <div className="">Title</div>
         <div>Course</div>
@@ -21,9 +22,9 @@ export default function CourseList({ list, revealModal }: CourseListProps) {
         <div>Location</div>
         <div>Seats</div>
         <div className=" text-right">Status</div>
-      </div> */}
+      </div>
       {list.filter((data, idx) => (
-        true //This is for future purposes of filtering out the requested data with nice filters :)
+        true
       )).map((data: Course, idx: number) => (
         <CourseItem
           revealModal={(crn: String) => revealModal(crn)}
