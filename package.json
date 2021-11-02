@@ -1,71 +1,45 @@
 {
-    "name": "web",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "@craco/craco": "^6.3.0",
-        "@tailwindcss/postcss7-compat": "^2.2.14",
-        "@testing-library/dom": "^8.0.0",
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.3.2",
-        "@testing-library/user-event": "^7.1.2",
-        "@types/axios": "^0.14.0",
-        "@types/history": "^4.7.8",
-        "@types/jest": "^26.0.22",
-        "@types/node": "^14.14.41",
-        "@types/prop-types": "^15.7.3",
-        "@types/react-dom": "^17.0.9",
-        "@types/react-router": "^5.1.15",
-        "@types/react-router-dom": "^5.1.7",
-        "@types/react-select": "^4.0.15",
-        "@types/react-table": "^7.0.29",
-        "@types/scheduler": "^0.16.1",
-        "@typescript-eslint/eslint-plugin": "^4.28.0",
-        "axios": "^0.21.2",
-        "craco": "^0.0.3",
-        "eslint-config-react-app": "^6.0.0",
-        "install": "^0.13.0",
-        "npm": "^7.20.3",
-        "react": "^17.0.2",
-        "react-bootstrap": "^1.0.1",
-        "react-dom": "^17.0.2",
-        "react-router-dom": "^5.2.0",
-        "react-scripts": "^4.0.3",
-        "react-select": "^3.1.1",
-        "react-table": "^7.2.2",
-        "sass": "^1.26.9",
-        "typescript": "^4.3.4",
-        "webpack": "^5.40.0"
-    },
-    "scripts": {
-        "build:tailwind": "tailwindcss build ./src/tailwind.css -o ./src/styles/tailwind.output.css",
-        "prestart": "yarn run build:tailwind",
-        "prebuild": "yarn run build:tailwind",
-        "start": "craco start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
-    "devDependencies": {
-        "@types/react": "^17.0.11",
-        "autoprefixer": "^9",
-        "eslint-config-react": "^1.1.7",
-        "postcss": "^7",
-        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
-    }
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.24.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
