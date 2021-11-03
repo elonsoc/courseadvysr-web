@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App';
+import TopLevel from './components/Globals';
 
 ReactDOM.render(
-  <React.StrictMode>
+  
+  <TopLevel>  
     <App />
-  </React.StrictMode>,
+  </TopLevel>,
   document.getElementById('root')
 );
