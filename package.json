@@ -23,7 +23,7 @@
         "axios": "^0.21.2",
         "eslint-config-react-app": "^6.0.0",
         "install": "^0.13.0",
-        "npm": "^7.20.3",
+        "npm": "^8.11.0",
         "postcss": "^8.1.7",
         "react": "^17.0.2",
         "react-bootstrap": "^1.0.1",
